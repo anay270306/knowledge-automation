@@ -1,184 +1,186 @@
-# Knowledge Automation Platform — V1
+# Knowledge Automation Platform
 
-Transforms existing software development knowledge (Jira stories,
-engineering notes, design documents, metadata) into stakeholder-specific
-representations — without generating any new knowledge, and without any
-AI or external API calls. V1 is deterministic, template-driven, and
-reads from a local dataset only.
+> Transform software development knowledge into stakeholder-specific representations.
 
-## A note on the dataset
+## Overview
 
-The prompt this project was built from describes a dataset at
-`data/v1/NF-101 ... NF-120` as already existing, but no dataset was
-provided along with it. To keep this a complete, runnable deliverable, a
-**synthetic sample dataset for three issues (NF-101, NF-102, NF-103)**
-was created for this V1, covering three different shapes of issue on
-purpose:
+Knowledge Automation Platform is an enterprise-focused backend platform that helps organizations transform technical software development artifacts into formats suitable for different business stakeholders.
 
-- **NF-101** — a customer-facing feature (Story)
-- **NF-102** — a customer-facing bug fix (Bug)
-- **NF-103** — an internal, non-customer-facing technical task
+Instead of manually rewriting the same information for engineering, product, sales, customer success, and support teams, the platform provides a unified transformation layer that converts software development knowledge into the required representation.
 
-This mix exercises every branch of the transformation business rules
-(e.g. sales summaries and release notes behave differently for
-non-customer-facing work). To extend the dataset to NF-104...NF-120,
-just add more folders under `data/v1/` following the exact same
-structure — the backend needs no code changes to pick them up.
+The platform is connector-driven and designed to integrate with enterprise knowledge sources while remaining modular and extensible.
+
+---
+
+## Problem Statement
+
+Engineering teams create large amounts of technical information across multiple systems.
+
+Examples include:
+
+- Jira Stories
+- Design Documents
+- Engineering Notes
+- Pull Requests
+- Internal Documentation
+
+Business teams often need the same information presented differently.
+
+Examples include:
+
+- Sales Summaries
+- Customer Release Notes
+- Support Documentation
+- FAQs
+- Internal Technical Summaries
+
+Today, this process is largely manual and repetitive.
+
+Knowledge Automation Platform aims to automate this knowledge transformation process.
+
+---
+
+## Version Roadmap
+
+### Version 1 – Foundation (Current)
+
+Version 1 establishes the core backend platform.
+
+Current capabilities include:
+
+- Local synthetic enterprise dataset
+- Modular FastAPI backend
+- Context building from multiple development artifacts
+- Knowledge transformation engine
+- REST API
+- Extensible connector architecture
+
+Version 1 intentionally uses a synthetic dataset to validate the platform architecture before integrating external systems.
+
+---
+
+### Version 2 – Enterprise Connectors
+
+Version 2 focuses on integrating real enterprise knowledge sources.
+
+Planned integrations include:
+
+- Jira
+- SharePoint
+- GitHub
+- Confluence
+- Azure DevOps
+
+The objective is to allow organizations to connect existing development workflows without changing the core platform.
+
+---
+
+### Version 3 – Enterprise AI Integration
+
+Version 3 introduces optional integration with enterprise-approved AI providers.
+
+The platform will allow organizations to configure their preferred AI solution while keeping deployment choices under their control.
+
+Examples include:
+
+- Microsoft Copilot
+- Azure OpenAI
+- Claude Enterprise
+- On-premise LLMs
+- Other enterprise-approved AI providers
+
+AI will be an optional extension rather than a core dependency.
+
+---
+
+## Current Repository
+
+This repository currently contains:
+
+- Version 1 backend
+- Synthetic enterprise dataset
+- Modular project structure for future connector support
+
+---
 
 ## Project Structure
 
-```
-.
-├── backend/
-│   ├── api/
-│   │   ├── routes.py            # FastAPI route definitions (thin)
-│   │   └── schemas.py           # Request/response models (HTTP contract)
-│   ├── connectors/
-│   │   ├── base_connector.py    # BaseConnector interface + RawArtifacts
-│   │   └── jira_connector.py    # V1: reads the local dataset
-│   ├── services/
-│   │   ├── context_builder.py       # Merges raw artifacts -> IssueContext
-│   │   └── transformation_service.py# IssueContext -> requested representation
-│   ├── models/
-│   │   └── context.py           # Internal domain models (JiraStory, IssueMetadata, IssueContext)
-│   ├── utils/
-│   │   ├── exceptions.py        # Domain exception hierarchy
-│   │   ├── logging_config.py
-│   │   └── markdown_utils.py    # Shared markdown section-extraction helper
-│   ├── config.py                # Paths, filenames, supported transformations
-│   ├── main.py                  # App entrypoint + exception -> HTTP mapping
-│   └── requirements.txt
-└── data/
-    └── v1/
-        ├── NF-101/
-        │   ├── jira_story.json
-        │   ├── engineering_notes.md
-        │   ├── design_document.md
-        │   └── metadata.json
-        ├── NF-102/ ...
-        └── NF-103/ ...
+```text
+backend/
+data/
+docs/
 ```
 
-## How data flows
+The synthetic dataset is located in:
 
-```
-JiraConnector          ContextBuilder            TransformationService
-(reads data/v1/*)  →   (merges 4 files into  →   (IssueContext → one of 5
-                        one IssueContext)          stakeholder-specific outputs)
+```text
+data/v1/
 ```
 
-Each component has exactly one job:
+Each issue contains:
 
-- **JiraConnector** only reads raw files for an issue key. It doesn't
-  merge or interpret anything.
-- **ContextBuilder** only merges the four raw artifacts into one
-  validated `IssueContext`. It contains no business logic.
-- **TransformationService** only turns a `IssueContext` into the
-  requested representation, using deterministic templates and simple
-  rules over fields like `issue_type`, `customer_facing`, `priority`.
+- jira_story.json
+- engineering_notes.md
+- design_document.md
+- metadata.json
 
-## Installation
+---
 
-Requires Python 3.10+.
+## Example Workflow
 
-```bash
-cd knowledge-automation-platform   # this project's root directory
-python3 -m venv .venv
-source .venv/bin/activate          # Windows: .venv\Scripts\activate
-pip install -r backend/requirements.txt
+```
+Software Development Artifact
+        │
+        ▼
+Knowledge Automation Platform
+        │
+        ▼
+Requested Representation
+        │
+        ├── Sales Summary
+        ├── Customer Release Notes
+        ├── Support Guide
+        ├── FAQ
+        └── Internal Summary
 ```
 
-## Running locally
+---
 
-Run from the project root (the directory containing both `backend/` and
-`data/`):
+## Technology Stack
 
-```bash
-uvicorn backend.main:app --reload
-```
+### Backend
 
-The API will be available at `http://127.0.0.1:8000`, with interactive
-docs (Swagger UI) at `http://127.0.0.1:8000/docs`.
+- Python
+- FastAPI
+- Pydantic
 
-## API
+### Planned Integrations
 
-### `GET /story/{issueKey}`
+- Jira
+- GitHub
+- SharePoint
+- Confluence
+- Azure DevOps
 
-Loads an issue and returns its complete, merged Context.
+### Future AI Support
 
-```bash
-curl http://127.0.0.1:8000/story/NF-101
-```
+- Enterprise-approved AI providers
+- Configurable provider architecture
 
-### `POST /generate`
+---
 
-Generates a stakeholder-specific representation for an issue.
+## Project Status
 
-```bash
-curl -X POST http://127.0.0.1:8000/generate \
-  -H "Content-Type: application/json" \
-  -d '{"issueKey": "NF-101", "transformation": "sales_summary"}'
-```
+🚧 Active Development
 
-Supported values for `transformation`:
+Current milestone:
 
-- `sales_summary`
-- `customer_release_notes`
-- `support_guide`
-- `faq`
-- `internal_summary`
+**Version 1 – Backend Foundation**
 
-Response:
+---
 
-```json
-{
-  "success": true,
-  "issueKey": "NF-101",
-  "transformation": "sales_summary",
-  "content": "..."
-}
-```
+## License
 
-### `GET /health`
+This project is under active development.
 
-Basic liveness check, returns service name/version/status.
-
-## Error handling
-
-All errors are returned as JSON in a consistent envelope:
-
-```json
-{
-  "success": false,
-  "error": "issue_not_found",
-  "detail": "Issue 'NF-999' was not found."
-}
-```
-
-| Scenario                          | HTTP status |
-|------------------------------------|:-----------:|
-| Malformed issue key                | 400         |
-| Unsupported transformation         | 400         |
-| Request body fails validation      | 422         |
-| Issue key not found in dataset     | 404         |
-| Issue folder exists but a file is missing | 500  |
-| Artifact file exists but is malformed (invalid JSON / wrong shape) | 500 |
-| Any other unexpected error         | 500         |
-
-## Extending to a real data source (V2+)
-
-To replace the local dataset with a real Jira REST API, GitHub,
-SharePoint, Confluence, or Azure DevOps source, implement
-`BaseConnector` (see `backend/connectors/base_connector.py`) and wire the
-new connector into `backend/api/routes.py` in place of `JiraConnector`.
-`ContextBuilder` and `TransformationService` do not need to change, since
-they only depend on the `RawArtifacts` / `IssueContext` shapes, not on
-where the data came from.
-
-## Out of scope for V1 (by design)
-
-Authentication/authorization, a real database, Docker/Kubernetes, a
-frontend, OAuth, LLM/AI integration, and connectors to real external
-systems (Jira REST API, GitHub, SharePoint, Confluence, Azure DevOps),
-background jobs, and caching. These are intentionally left for future
-versions; V1 focuses on a clean, extensible foundation.
+All data included in this repository is synthetic and created solely for development, testing, and demonstration purposes.
