@@ -1,34 +1,56 @@
 # Knowledge Automation Platform
 
-> Transform software development knowledge into stakeholder-specific business deliverables.
+> Transform Jira-based software development knowledge into stakeholder-ready deliverables.
 
 ## Overview
 
-Knowledge Automation Platform is an enterprise-focused platform that transforms software development artifacts into standardized outputs for different stakeholders.
+Knowledge Automation Platform is an enterprise-focused platform that helps software delivery teams transform Jira work items into standardized business deliverables.
 
-Engineering teams create valuable technical knowledge every day through Jira stories, engineering notes, and design documents. However, different teams require that information in different formats.
+Throughout a software development lifecycle, the same technical information often needs to be communicated to different stakeholders in different formats. Product Managers, Scrum Masters, Engineering Managers, Sales teams, Customer Success teams, and Support teams frequently spend time manually rewriting Jira stories into release notes, sprint summaries, support documentation, and stakeholder updates.
 
-This platform automates that transformation process by converting technical software development knowledge into structured, business-ready deliverables.
+Knowledge Automation Platform standardizes this process by providing a reusable knowledge transformation workflow that converts software development knowledge into consistent, stakeholder-specific outputs.
 
-Version 1 demonstrates the complete workflow using a synthetic enterprise dataset and a modular backend architecture.
+Version 1 demonstrates this workflow using a synthetic enterprise Jira dataset.
 
 ---
 
 # Problem Statement
 
-Engineering teams frequently communicate the same information multiple times.
+Software teams continuously create technical knowledge inside Jira.
 
-A completed feature often needs to be presented differently for:
+However, every sprint or release requires the same information to be communicated differently depending on the audience.
 
-- Product Teams
-- Sales Teams
-- Customer Success
+Typical examples include:
+
+- Sprint Reviews
+- Customer Release Notes
+- Sales Updates
+- Product Briefs
+- Support Documentation
+- Executive Summaries
+
+These deliverables are often created manually, resulting in repetitive work, inconsistent communication, and additional overhead for delivery teams.
+
+Knowledge Automation Platform aims to streamline this process by transforming existing Jira knowledge into standardized stakeholder-ready deliverables.
+
+---
+
+# Target Users
+
+Primary Users
+
+- Product Managers
+- Scrum Masters
+- Engineering Managers
+- Release Managers
+
+Secondary Users
+
+- Product Owners
+- QA Leads
+- Customer Success Teams
 - Support Teams
-- Leadership
-
-This process is typically manual, repetitive, and inconsistent.
-
-Knowledge Automation Platform standardizes this process by providing a reusable knowledge transformation workflow.
+- Sales Enablement Teams
 
 ---
 
@@ -42,77 +64,13 @@ Knowledge Automation Platform standardizes this process by providing a reusable 
 - REST API
 - Modular connector architecture
 
-Supported transformations include:
+Supported transformations:
 
 - Sales Summary
 - Customer Release Notes
 - Support Guide
 - Frequently Asked Questions (FAQ)
 - Internal Technical Summary
-
----
-
-# Architecture
-
-```
-Local Jira Dataset
-        │
-        ▼
-Connector
-        │
-        ▼
-Context Builder
-        │
-        ▼
-Knowledge Transformation Engine
-        │
-        ▼
-REST API
-        │
-        ▼
-React Frontend
-```
-
----
-
-# Project Structure
-
-```
-backend/
-frontend/
-data/
-docs/
-```
-
-Dataset:
-
-```
-data/v1/
-```
-
-Each Jira issue contains:
-
-- jira_story.json
-- engineering_notes.md
-- design_document.md
-- metadata.json
-
----
-
-# Technology Stack
-
-### Backend
-
-- Python
-- FastAPI
-- Pydantic
-
-### Frontend
-
-- React
-- TypeScript
-- Vite
-- Tailwind CSS
 
 ---
 
@@ -130,59 +88,47 @@ Implemented:
 - Context Builder
 - Knowledge Transformation Engine
 - REST APIs
-- Stakeholder-specific document generation
+- Stakeholder-specific knowledge transformations
 
 ---
 
-## 🚧 Version 2 – Enterprise Knowledge Integration
+## 🚧 Version 2 – Jira Workflow Automation
 
-Version 2 focuses on integrating directly with enterprise development tools.
+Version 2 focuses on integrating directly with Jira and automating common software delivery workflows.
 
 Planned capabilities include:
 
 - Jira REST API integration
-- Batch transformations (Sprint / Release level)
-- Custom transformation templates
-- Export to PDF, Word, and Markdown
-- Jira workflow integration
+- Sprint-level batch transformations
 - Release package generation
-- Executive summaries
+- Executive sprint summaries
 - Product handover documents
 - Sales enablement documents
 - Support handover documentation
+- Custom organization templates
+- Export to PDF, Word, and Markdown
 
-The objective is to provide a unified knowledge transformation workflow directly from enterprise software development systems.
+The objective is to help Product Managers, Scrum Masters, and Engineering Managers reduce repetitive documentation effort while improving consistency across software delivery teams.
 
 ---
 
 # Example Workflow
 
 ```
-Jira Story
-
+Jira Story(s)
         │
-
         ▼
-
 Knowledge Automation Platform
-
         │
-
         ▼
-
 Choose Transformation
-
         │
-
-        ├── Sales Summary
-
+        ├── Sprint Summary
         ├── Customer Release Notes
-
+        ├── Product Brief
         ├── Support Guide
-
         ├── FAQ
-
-        └── Internal Technical Summary
+        └── Executive Summary
 ```
 
 ---
