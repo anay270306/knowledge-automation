@@ -1,123 +1,96 @@
 # Knowledge Automation Platform
 
-> Transform software development knowledge into stakeholder-specific representations.
+> Transform software development knowledge into stakeholder-specific business deliverables.
 
 ## Overview
 
-Knowledge Automation Platform is an enterprise-focused backend platform that helps organizations transform technical software development artifacts into formats suitable for different business stakeholders.
+Knowledge Automation Platform is an enterprise-focused platform that transforms software development artifacts into standardized outputs for different stakeholders.
 
-Instead of manually rewriting the same information for engineering, product, sales, customer success, and support teams, the platform provides a unified transformation layer that converts software development knowledge into the required representation.
+Engineering teams create valuable technical knowledge every day through Jira stories, engineering notes, and design documents. However, different teams require that information in different formats.
 
-The platform is connector-driven and designed to integrate with enterprise knowledge sources while remaining modular and extensible.
+This platform automates that transformation process by converting technical software development knowledge into structured, business-ready deliverables.
 
----
-
-## Problem Statement
-
-Engineering teams create large amounts of technical information across multiple systems.
-
-Examples include:
-
-- Jira Stories
-- Design Documents
-- Engineering Notes
-- Pull Requests
-- Internal Documentation
-
-Business teams often need the same information presented differently.
-
-Examples include:
-
-- Sales Summaries
-- Customer Release Notes
-- Support Documentation
-- FAQs
-- Internal Technical Summaries
-
-Today, this process is largely manual and repetitive.
-
-Knowledge Automation Platform aims to automate this knowledge transformation process.
+Version 1 demonstrates the complete workflow using a synthetic enterprise dataset and a modular backend architecture.
 
 ---
 
-## Version Roadmap
+# Problem Statement
 
-### Version 1 – Foundation (Current)
+Engineering teams frequently communicate the same information multiple times.
 
-Version 1 establishes the core backend platform.
+A completed feature often needs to be presented differently for:
 
-Current capabilities include:
+- Product Teams
+- Sales Teams
+- Customer Success
+- Support Teams
+- Leadership
 
-- Local synthetic enterprise dataset
-- Modular FastAPI backend
-- Context building from multiple development artifacts
-- Knowledge transformation engine
+This process is typically manual, repetitive, and inconsistent.
+
+Knowledge Automation Platform standardizes this process by providing a reusable knowledge transformation workflow.
+
+---
+
+# Version 1 Features
+
+- FastAPI backend
+- React demonstration frontend
+- Synthetic enterprise Jira dataset (NF-101 – NF-120)
+- Context Builder
+- Knowledge Transformation Engine
 - REST API
-- Extensible connector architecture
+- Modular connector architecture
 
-Version 1 intentionally uses a synthetic dataset to validate the platform architecture before integrating external systems.
+Supported transformations include:
 
----
-
-### Version 2 – Enterprise Connectors
-
-Version 2 focuses on integrating real enterprise knowledge sources.
-
-Planned integrations include:
-
-- Jira
-- SharePoint
-- GitHub
-- Confluence
-- Azure DevOps
-
-The objective is to allow organizations to connect existing development workflows without changing the core platform.
+- Sales Summary
+- Customer Release Notes
+- Support Guide
+- Frequently Asked Questions (FAQ)
+- Internal Technical Summary
 
 ---
 
-### Version 3 – Enterprise AI Integration
+# Architecture
 
-Version 3 introduces optional integration with enterprise-approved AI providers.
-
-The platform will allow organizations to configure their preferred AI solution while keeping deployment choices under their control.
-
-Examples include:
-
-- Microsoft Copilot
-- Azure OpenAI
-- Claude Enterprise
-- On-premise LLMs
-- Other enterprise-approved AI providers
-
-AI will be an optional extension rather than a core dependency.
-
----
-
-## Current Repository
-
-This repository currently contains:
-
-- Version 1 backend
-- Synthetic enterprise dataset
-- Modular project structure for future connector support
+```
+Local Jira Dataset
+        │
+        ▼
+Connector
+        │
+        ▼
+Context Builder
+        │
+        ▼
+Knowledge Transformation Engine
+        │
+        ▼
+REST API
+        │
+        ▼
+React Frontend
+```
 
 ---
 
-## Project Structure
+# Project Structure
 
-```text
+```
 backend/
+frontend/
 data/
 docs/
 ```
 
-The synthetic dataset is located in:
+Dataset:
 
-```text
+```
 data/v1/
 ```
 
-Each issue contains:
+Each Jira issue contains:
 
 - jira_story.json
 - engineering_notes.md
@@ -126,27 +99,7 @@ Each issue contains:
 
 ---
 
-## Example Workflow
-
-```
-Software Development Artifact
-        │
-        ▼
-Knowledge Automation Platform
-        │
-        ▼
-Requested Representation
-        │
-        ├── Sales Summary
-        ├── Customer Release Notes
-        ├── Support Guide
-        ├── FAQ
-        └── Internal Summary
-```
-
----
-
-## Technology Stack
+# Technology Stack
 
 ### Backend
 
@@ -154,33 +107,100 @@ Requested Representation
 - FastAPI
 - Pydantic
 
-### Planned Integrations
+### Frontend
 
-- Jira
-- GitHub
-- SharePoint
-- Confluence
-- Azure DevOps
-
-### Future AI Support
-
-- Enterprise-approved AI providers
-- Configurable provider architecture
+- React
+- TypeScript
+- Vite
+- Tailwind CSS
 
 ---
 
-## Project Status
+# Roadmap
+
+## ✅ Version 1 – Foundation
+
+Version 1 establishes the core Knowledge Automation Platform.
+
+Implemented:
+
+- Local synthetic Jira dataset
+- FastAPI backend
+- React frontend
+- Context Builder
+- Knowledge Transformation Engine
+- REST APIs
+- Stakeholder-specific document generation
+
+---
+
+## 🚧 Version 2 – Enterprise Knowledge Integration
+
+Version 2 focuses on integrating directly with enterprise development tools.
+
+Planned capabilities include:
+
+- Jira REST API integration
+- Batch transformations (Sprint / Release level)
+- Custom transformation templates
+- Export to PDF, Word, and Markdown
+- Jira workflow integration
+- Release package generation
+- Executive summaries
+- Product handover documents
+- Sales enablement documents
+- Support handover documentation
+
+The objective is to provide a unified knowledge transformation workflow directly from enterprise software development systems.
+
+---
+
+# Example Workflow
+
+```
+Jira Story
+
+        │
+
+        ▼
+
+Knowledge Automation Platform
+
+        │
+
+        ▼
+
+Choose Transformation
+
+        │
+
+        ├── Sales Summary
+
+        ├── Customer Release Notes
+
+        ├── Support Guide
+
+        ├── FAQ
+
+        └── Internal Technical Summary
+```
+
+---
+
+# Current Status
 
 🚧 Active Development
 
-Current milestone:
+Current Release:
 
-**Version 1 – Backend Foundation**
+**Version 1.0.0 – MVP**
 
 ---
 
-## License
+# License
 
 This project is under active development.
 
-All data included in this repository is synthetic and created solely for development, testing, and demonstration purposes.
+All datasets included in this repository are synthetic and created solely for development, testing, and demonstration purposes.
+
+No proprietary or confidential enterprise information is included.
